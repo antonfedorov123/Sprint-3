@@ -11,9 +11,14 @@ import kotlin.random.Random
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class ScannerTest {
 
-    @BeforeAll
+    @BeforeEach
     fun init() {
         mockkObject(Random)
+    }
+
+    @AfterEach
+    fun afterTest(){
+        unmockkAll()
     }
 
     @Test
@@ -27,15 +32,11 @@ internal class ScannerTest {
     fun getScanDataTest() {
 
         val data = Random.nextBytes(100)
-        every { Random.nextLong(5000L, 15000L) } returns 5_000L
+        every { Random.nextLong(5000L, 15000L) } returns 10_000L - 1
         every { Random.nextBytes(100) } returns data
         val result = Scanner.getScanData()
 
         assertArrayEquals(result, data)
     }
 
-    @AfterAll
-    fun afterTest(){
-        unmockkAll()
-    }
 }
