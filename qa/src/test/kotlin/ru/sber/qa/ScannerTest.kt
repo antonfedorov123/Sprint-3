@@ -23,7 +23,7 @@ internal class ScannerTest {
 
     @Test
     fun throwTimeoutExceptionTest() {
-        every { Random.nextLong(5000L, 15000L) } returns 20_000L
+        every { Random.nextLong(5000L, 15000L) } returns 10_000L + 1
         assertThrows<ScanTimeoutException> { Scanner.getScanData() }
     }
 
@@ -32,7 +32,7 @@ internal class ScannerTest {
     fun getScanDataTest() {
 
         val data = Random.nextBytes(100)
-        every { Random.nextLong(5000L, 15000L) } returns 10_000L - 1
+        every { Random.nextLong(5000L, 15000L) } returns 1
         every { Random.nextBytes(100) } returns data
         val result = Scanner.getScanData()
 
