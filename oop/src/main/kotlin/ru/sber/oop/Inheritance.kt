@@ -8,12 +8,17 @@ open class Room(val name: String, val size: Int, val monster: Monster = Goblin("
 
     fun description() = "Room: $name"
 
-    open fun load() = "Nothing much to see here..."
+    open fun load() = monster.getSalutation()
 
 }
 
 class TownSquare : Room("Town Square", 1000) {
     override val dangerLevel = super.dangerLevel - 3
 
-    override fun load() = "Hop! Hey! La-la-ley!"
+    final override fun load() = "Hop! Hey! La-la-ley!"
+}
+
+fun main() {
+    println(Room("№1", 2).load())
+    println(TownSquare().load())
 }
